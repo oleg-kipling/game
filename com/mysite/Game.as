@@ -1,16 +1,1 @@
-package com.mysite
-{
-	import flash.display.MovieClip;
-
-	public class Game extends MovieClip
-	{
-		var hero:Hero = new Hero;
-
-		public function Game()
-		{
-			//constructor class
-			trace("hey! Game");
-			addChild(hero);
-		}
-	}
-}
+﻿package com.mysite{	import flash.display.MovieClip;	import flash.display.Stage;	import flash.ui.Keyboard;	import flash.events.KeyboardEvent;	import flash.events.Event;	import com.senocular.KeyObject;	public class Game extends MovieClip	{		var hero:Hero = new Hero();		var tongue:Tongue = new Tongue();		var enemy:Enemy = new Enemy();		var key:KeyObject;		public function Game()		{			//constructor class				this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);		}		private function onAddedToStage(e:Event):void		{			//addEventListener(KeyboardEvent.KEY_DOWN, heroMovement);			gameBuilder();			addEventListener(Event.ENTER_FRAME, loop);			key = new KeyObject(this.stage);		}		public function gameBuilder():void		{			hero.x = tongue.x = stage.stageWidth / 2;			hero.y = tongue.y = stage.stageHeight / 2;			addChild(hero);			enemy.x = 200;			enemy.y = 200;			addChild(enemy);					}		public function loop(e:Event):void		{			hero.stop();			if(key.isDown(Keyboard.LEFT)) 			hero.rotation -= 5;			else 			if(key.isDown(Keyboard.RIGHT)) 			hero.rotation += 5;			else 			if(key.isDown(Keyboard.UP))			 	jumping();					if(key.isDown(Keyboard.SPACE))				eating();						// динамическая привязка выхода за сцену по переменным			sceneCutter();		}		public function sceneCutter():void		{			if (hero.x > stage.stageWidth)				hero.x = stage.stageWidth;			else if (hero.x < 25) hero.x = 25;			if (hero.y > stage.stageHeight)				hero.y = stage.stageHeight - 25;			else if (hero.y < 25) hero.y = 25;		}/*		public function heroMovement(e:KeyboardEvent):void		{			// keyCode			trace("You pressed key: " + e.keyCode.toString());						if(e.keyCode == 38)			{				trace("UP");				jumping();			} else			if(e.keyCode == 37)			{				trace("LEFT");				hero.rotation += 5;			} else			if (e.keyCode == 39)			{				trace("RIGHT");				hero.rotation -= 5;			} else 			if(e.keyCode == 32)			{				trace("SPACE");			}		}*/		public function jumping():void		{			hero.x -= 1 * Math.sin(hero.rotation * (Math.PI/180)) * 100;			hero.y += 1 * Math.cos(hero.rotation * (Math.PI/180)) * 100;			trace(hero.x);			hero.gotoAndPlay("jump");		}		public function eating():void		{			var tongue:Tongue = new Tongue();			addChild(tongue);		}				public function heroAnimation():void		{						//e:KeyboardEvent				//trace ("KeyboardEvent");		}	}}

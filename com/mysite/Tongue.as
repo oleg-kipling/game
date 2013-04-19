@@ -2,9 +2,9 @@ package com.mysite
 {
 	import flash.display.MovieClip;
 
-	public class Hero extends MovieClip
+	public class Tongue extends MovieClip
 	{
-		public function Hero()
+		public function Tongue()
 		{
 			// constructor class
 		}
